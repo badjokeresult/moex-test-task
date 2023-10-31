@@ -12,6 +12,13 @@ def clone_repo(url):
 	dt_id = datetime.utcnow().strftime("%d.%m.%Y") # Форматируем текущую дату
 	folder_name = f"node-js_{dt_id}" # Создаем имя папки, в которую будет склонирован репозиторий
 
+	if folder_name in os.listdir() and len(os.listdir(folder_name)) > 0:
+		subprocess.run(
+			["rm", "-rf", folder_name],
+			encoding="utf-8",
+			check=True,
+			stdout=sys.stdout)
+
 	git_clone_reply = subprocess.run(
 			["git", "clone", f"{url}.git", folder_name], # Команда для клонирования репозитория
 			encoding="utf-8", # Устанавливаем кодировку
@@ -44,7 +51,7 @@ def create_dockerfile(config):
 
 def build_image(image_name):
 	# Конфигурация нашего Dockerfile
-	config = """FROM node:latest
+	config = """FROM node:latest AS builder
 
 WORKDIR /usr/src/app
 
@@ -55,7 +62,9 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
+
 CMD ["npm", "start"]
+
 """
 	
 	create_dockerfile(config) # Создаем Dockerfile и записываем в него конфиг
