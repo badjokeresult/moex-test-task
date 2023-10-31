@@ -1,8 +1,16 @@
+aiohttp==3.8.6
+aiosignal==1.3.1
+async-timeout==4.0.3
+asyncpg==0.28.0
+attrs==23.1.0
 certifi==2023.7.22
 charset-normalizer==3.3.1
 elastic-transport==8.4.1
 elasticsearch7==7.17.9
+frozenlist==1.4.0
 idna==3.4
+multidict==6.0.4
 psycopg2==2.9.9
 requests==2.31.0
 urllib3==1.26.18
+yarl==1.9.2
